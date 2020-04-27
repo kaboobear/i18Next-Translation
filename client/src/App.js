@@ -5,8 +5,6 @@ import Header from './components/header'
 import Main from './components/main'
 import Login from './components/login'
 import Register from './components/register'
-import Second from './components/second'
-import Edit from './components/editItem'
 import './App.css';
 
 import store from './store';
@@ -32,11 +30,6 @@ class App extends React.Component {
                                 <Route path='/' exact strict component={Main}/>
                                 <Route path='/login' exact strict component={Login}/>
                                 <Route path='/register' exact strict component={Register}/>
-                                <Route
-                                    path='/edit/:id'
-                                    exact
-                                    render={({match}) => (<Edit id={match.params.id}/>)}/>
-                                <Route path='/second' exact component={Second}/>
                             </div>
                         </div>
 

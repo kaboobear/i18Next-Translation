@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getItems, deleteItem} from '../actions/itemActions'
 import {NavLink} from 'react-router-dom';
-import Add from './addItem'
 
 class Main extends Component {
 
@@ -23,32 +22,14 @@ class Main extends Component {
 
         return (
             <div className="main-section">
-                {isAuth && <Add/>}
+                <h1>Dashboard ( {(this.props.isAuth)
+                        ? (
+                            <span>Logged In</span>
+                        )
+                        : (
+                            <span>Logged Out</span>
+                        )})</h1>
 
-                {(isLoading === false) && items.map(elem => (
-                    <div className="item" key={elem._id}>
-                        <div className="item-name">
-                            {elem.name}
-                        </div>
-
-                        {isAuth && (
-                            <div className="btns">
-                                <NavLink to={`/edit/${elem._id}`} className="edit-btn btn">
-                                    Edit
-                                </NavLink>
-
-                                <div
-                                    className="delete-btn btn"
-                                    onClick={() => {
-                                    this.onDeleteClick(elem._id)
-                                }}>
-                                    Delete
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                ))
-}
             </div>
         )
     }
