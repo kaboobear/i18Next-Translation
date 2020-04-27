@@ -22,13 +22,13 @@ class Main extends Component {
 
         return (
             <div className="main-section">
-                <h1>Dashboard ( {(this.props.isAuth)
+                <h2>Dashboard ( {(this.props.isAuth)
                         ? (
                             <span>Logged In</span>
                         )
                         : (
                             <span>Logged Out</span>
-                        )})</h1>
+                        )})</h2>
 
             </div>
         )
