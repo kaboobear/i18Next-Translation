@@ -1,89 +1,88 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const auth = require('../middleware/auth')
-
-const validateRegister = require("../validation/register-validation");
-const validateLogin = require("../validation/login-validation");
-const secret = require("../config/keys").jwtKey;
+const passportConfig = require("../passport");
+const passport = require("passport");
+const secretKey = require("../config/keys").jwtKey;
 const User = require('../models/user_model')
 
 
-router.route('/').get((req, res) => {
-        User.find().limit(50).then(auth => res.json(auth))
-    })
+const validateLogin = require("../validation/login-validation");
+const validateRegister = require("../validation/register-validation");
 
-router.get("/info",auth,(req,res)=>{
-        User.findById(req.user.id)
-            .select('-pass')
-            .then(user=>res.json(user));
-    })
-
-
-router.route('/:id').get((req, res) => {
-        User.findById(req.params.id).then(user => res.json(user)).catch(err => res.status(400).json('Error: ' + err))
-    })
-
-
-router.post("/register", (req, res) => {
-    const {errors, isValid} = validateRegister(req.body);
+const LogValidationMiddleware = (req,res,next) =>{
+    const {errors,isValid} = validateLogin(req.body);
     if (!isValid) return res.status(400).json(errors);
+    next();
+}
 
+const RegValidationMiddleware = (req,res,next) =>{
+    const {errors,isValid} = validateRegister(req.body);
+    if (!isValid) return res.status(400).json(errors);
+    next();
+}
+
+
+const signToken = userId => {
+    return jwt.sign({
+        iss: secretKey,
+        sub:userId
+    }, secretKey, {
+        expiresIn: "3600000"
+    });
+}
+
+
+
+router.get('/info',passport.authenticate('jwt',{session : false}),(req,res)=>{
+    const {username,isAdmin} = req.user;
+    res.json({username,isAdmin});
+})
+
+router.post('/login',LogValidationMiddleware,passport.authenticate('local',{session : false}),(req,res)=>{
+    if(req.user.error) return res.status(400).json(req.user.errors);
+    if(req.isAuthenticated()){
+       const {_id,username,isAdmin} = req.user;
+       const token = signToken(_id);
+       res.cookie('access_token',token,{httpOnly: true, sameSite:true}); 
+       res.json({username,isAdmin});
+    }
+});
+
+router.post("/register",RegValidationMiddleware,(req, res) => {
     User.findOne({mail: req.body.mail}).then(user => {
-            if (user) return res.status(400).json({mail: "User already exists"});
-            else {
-                bcrypt.genSalt(10, (err, salt) => {
-                    bcrypt.hash(req.body.pass, salt, (err, hash) => {
-                        if (err) throw err;
+        if (user) return res.status(400).json({mail: "User already exists"});
+        else {
+            bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(req.body.pass, salt, (err, hash) => {
+                    if (err) throw err;
 
-                        const newUser = new User({login: req.body.login, mail: req.body.mail, pass: hash});
-                        newUser.save()
-                            .then(createdUser => {
-                                const payload = {id: createdUser.id};
-
-                                jwt.sign(payload, secret, {expiresIn: 31556926}, (err, token) => {
-                                    if(err) res.json(err);
-                                    res.json({createdUser,token});
-                                });
-                            })
-                            .catch(err => console.log(err));
+                    const newUser = new User({
+                        username: req.body.login,
+                        mail: req.body.mail,
+                        password: hash
                     });
+                    newUser.save()
+                        .then(createdUser => {
+                            const token = signToken(createdUser._id);
+                            res.cookie('access_token',token,{httpOnly: true, sameSite:true}); 
+                            res.status(200).json({username:createdUser.username,isAdmin:0});
+                        })
+                        .catch(err => console.log(err));
                 });
-            }
-        });
+            });
+        }
+    });
 });
 
-
-router.post("/login", (req, res) => {
-    const {errors, isValid} = validateLogin(req.body);
-    const mail = req.body.mail;
-    const pass = req.body.pass;
-
-    if (!isValid) return res.status(400).json(errors);
-
-    User.findOne({mail}).then(user => {
-            if (!user) {
-                return res.status(404).json({mail: "Email not found"});
-            }
-
-            bcrypt
-                .compare(pass, user.pass)
-                .then(isMatch => {
-                    if (isMatch) {
-                        const payload = {id: user.id};
-
-                        jwt.sign(payload, secret, {expiresIn: 31556926}, (err, token) => {
-                            if(err) res.json(err);
-                            res.json({user,token});
-                        });
-                    } else return res.status(400).json({pass: "Password incorrect"});
-                });
-        });
+router.get('/logout',passport.authenticate('jwt',{session : false}),(req,res)=>{
+    res.clearCookie('access_token');
+    res.json({success:true})
 });
-
-
-
-
 
 module.exports = router;
+
+
+
+

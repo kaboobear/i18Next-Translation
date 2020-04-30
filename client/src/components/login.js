@@ -4,6 +4,7 @@ import {login} from '../actions/authActions'
 import {clearErrors} from '../actions/errorActions'
 import {connect} from 'react-redux'
 
+
 class Login extends React.Component {
     state = {
         mail: '',
@@ -20,8 +21,8 @@ class Login extends React.Component {
         e.preventDefault();
 
         const loginData = {
-            mail: this.state.mail,
-            pass: this.state.pass
+            username: this.state.mail,
+            password: this.state.pass
         }
 
         this

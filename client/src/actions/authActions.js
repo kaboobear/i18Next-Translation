@@ -4,11 +4,10 @@ import axios from 'axios';
 
 
 
-
 export const loadUser = () => (dispatch, getState) => {
     dispatch({type:USER_LOADING});
 
-    axios.get('/user/info',tokenConfig(getState))
+    axios.get('/user/info')
         .then(res => {
             dispatch({type:USER_LOADED,payload:res.data})
         })
@@ -35,33 +34,19 @@ export const login = (loginData) => dispatch =>{
 
     const body = JSON.stringify(loginData)
     axios.post('/user/login',body,config)
-        .then(res => dispatch({type:LOGIN_SUCCESS,payload:res.data}))
+        .then(res => {
+            console.log(res.status);
+            dispatch({type:LOGIN_SUCCESS,payload:res.data})
+        })
         .catch(err => {
+            console.log(err.response);
             dispatch(returnErrors(err.response.data,err.response.status,LOGIN_FAIL))
             dispatch({type:LOGIN_FAIL})
         })
 }
 
-export const logout = () =>{
-    return{
-        type:LOGOUT_SUCCESS
-    }
-}
-
-
-
-export const tokenConfig = (getState) =>{
-    const token = getState().auth.token;
-
-    const config = {
-        headers:{
-            'Content-type':'application/json'
-        }
-    }
-
-    if(token) {
-        config.headers['x-auth-token'] = token;
-    }
-
-    return config;
+export const logout = () => dispatch =>{
+    axios.get('/user/logout').then(()=>{
+        dispatch({type:LOGOUT_SUCCESS})
+    })
 }
