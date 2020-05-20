@@ -52,9 +52,9 @@
 
 
 
-[forks-shield]: https://img.shields.io/github/forks/kaboobear/ContextAPI+Hooks?style=flat-square
-[forks-url]: https://github.com/kaboobear/ContextAPI+Hooks/network/members
-[issues-shield]: https://img.shields.io/github/issues/kaboobear/ContextAPI+Hooks.svg?style=flat-square
-[issues-url]: https://github.com/kaboobear/ContextAPI+Hooks/issues
-[license-shield]: https://img.shields.io/github/license/kaboobear/ContextAPI+Hooks.svg?style=flat-square
-[license-url]: https://github.com/kaboobear/ContextAPI+Hooks/blob/master/LICENSE.txt
+[forks-shield]: https://img.shields.io/github/forks/kaboobear/ContextAPI-Hooks?style=flat-square
+[forks-url]: https://github.com/kaboobear/ContextAPI-Hooks/network/members
+[issues-shield]: https://img.shields.io/github/issues/kaboobear/ContextAPI-Hooks.svg?style=flat-square
+[issues-url]: https://github.com/kaboobear/ContextAPI-Hooks/issues
+[license-shield]: https://img.shields.io/github/license/kaboobear/ContextAPI-Hooks.svg?style=flat-square
+[license-url]: https://github.com/kaboobear/ContextAPI-Hooks/blob/master/LICENSE.txt
