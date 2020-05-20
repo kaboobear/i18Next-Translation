@@ -2,7 +2,7 @@
     <img src="https://img.icons8.com/bubbles/100/000000/rocket.png" width="100" height="100">
 </p>
 
-<h1 align="center">ContextAPI and React Hooks testing</h1>
+<h1 align="center">Template for i18Next translation</h1>
 
 [![Forks][forks-shield]][forks-url]
 [![Issues][issues-shield]][issues-url]
@@ -52,9 +52,9 @@
 
 
 
-[forks-shield]: https://img.shields.io/github/forks/kaboobear/ContextAPI-Hooks?style=flat-square
-[forks-url]: https://github.com/kaboobear/ContextAPI-Hooks/network/members
-[issues-shield]: https://img.shields.io/github/issues/kaboobear/ContextAPI-Hooks.svg?style=flat-square
-[issues-url]: https://github.com/kaboobear/ContextAPI-Hooks/issues
-[license-shield]: https://img.shields.io/github/license/kaboobear/ContextAPI-Hooks.svg?style=flat-square
-[license-url]: https://github.com/kaboobear/ContextAPI-Hooks/blob/master/LICENSE.txt
+[forks-shield]: https://img.shields.io/github/forks/kaboobear/i18Next-Translation?style=flat-square
+[forks-url]: https://github.com/kaboobear/i18Next-Translation/network/members
+[issues-shield]: https://img.shields.io/github/issues/kaboobear/i18Next-Translation.svg?style=flat-square
+[issues-url]: https://github.com/kaboobear/i18Next-Translation/issues
+[license-shield]: https://img.shields.io/github/license/kaboobear/i18Next-Translation.svg?style=flat-square
+[license-url]: https://github.com/kaboobear/i18Next-Translation/blob/master/LICENSE.txt

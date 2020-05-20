@@ -1,8 +1,10 @@
 import React, {useContext, useState} from 'react';
 
 import {itemContext} from '../context/itemContext'
+import { useTranslation } from 'react-i18next';
 
 const ItemForm = () => {
+    const { t } = useTranslation();
     const {addItem} = useContext(itemContext);
     const [text,setText] = useState('');
 
@@ -24,13 +26,13 @@ const ItemForm = () => {
                 <input
                     autoComplete="off"
                     type="text"
-                    placeholder="Text..."
+                    placeholder={t("Text-holder.1")}
                     onChange={onChange}
                     value={text}
                     name='text'/>
             </div>
 
-            <button className="btn" type="submit">Add</button>
+            <button className="btn" type="submit">{t("Add-item.1")}</button>
         </form>
     )
 }

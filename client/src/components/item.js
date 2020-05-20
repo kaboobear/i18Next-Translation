@@ -1,9 +1,11 @@
 import React, {useContext} from 'react';
 
 import {itemContext} from '../context/itemContext'
+import { useTranslation } from 'react-i18next';
 
 
 const Item = (props) => {
+    const { t } = useTranslation();
     const {deleteItem} = useContext(itemContext);
 
     return (
@@ -13,7 +15,7 @@ const Item = (props) => {
             </div>
 
             <div onClick={()=>deleteItem(props.elem._id)} className="item-delete">
-                Delete
+            {t("Delete-item.1")}
             </div>
         </div>
     )

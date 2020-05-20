@@ -1,10 +1,12 @@
 import React, {useContext} from 'react';
 import ItemForm from './item-form'
 import Item from './item'
+import { useTranslation } from 'react-i18next';
 
 import {itemContext} from '../context/itemContext'
 
 const Main = () => {
+    const { t } = useTranslation();
     const {items} = useContext(itemContext);
 
     return (
@@ -13,7 +15,7 @@ const Main = () => {
 
             {(items.length === 0) ? (
                 <div className="empty-items">
-                    List is Empty
+                    {t("Empty-list.1")}
                 </div>
             )
             : (

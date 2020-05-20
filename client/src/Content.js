@@ -3,7 +3,6 @@ import {BrowserRouter as Router,} from 'react-router-dom';
 
 import Header from './components/header'
 import Main from './components/main'
-import Admin from './components/admin'
 import Login from './components/login'
 import Register from './components/register'
 
@@ -34,7 +33,6 @@ const Content = (props) => {
                                 <Route path='/login' exact component={Login}/>
                                 <Route path='/register' exact component={Register}/> */}
                         <PrivateRoute path="/" isAdmin={[0,1]} component={Main}/>
-                        <PrivateRoute path="/admin" isAdmin={[1]} component={Admin}/>
                         <UnprivateRoute path="/login" component={Login}/>
                         <UnprivateRoute path="/register" component={Register}/>
 

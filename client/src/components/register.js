@@ -2,8 +2,10 @@ import React, {useContext, useEffect, useState} from 'react';
 import {withRouter} from 'react-router-dom'
 import {userContext} from '../context/userContext'
 import {errorContext} from '../context/errorContext'
+import { useTranslation } from 'react-i18next';
 
 const Register = (props) => {
+        const { t } = useTranslation();
         const {isAuth, register} = useContext(userContext);
         const {errorMsg, errorId, clearErrors} = useContext(errorContext);
     
@@ -57,7 +59,7 @@ const Register = (props) => {
         return (
             <div className="register-section">
 
-                <h2 className="log-title">Register</h2>
+                <h2 className="log-title">{t("Register.1")}</h2>
 
                 <div className="flex-wrap center">
                     <form onSubmit={onSubmit} className="add-form" autoComplete="off">
@@ -65,7 +67,7 @@ const Register = (props) => {
                             <input
                                 type="text"
                                 name="login"
-                                placeholder="Login"
+                                placeholder={t("Form-login.1")}
                                 value={formData.login}
                                 onChange={onChange}
                                 className={msg.login && "error"}/> {msg.login && (
@@ -79,7 +81,7 @@ const Register = (props) => {
                             <input
                                 type="text"
                                 name="mail"
-                                placeholder="E-mail"
+                                placeholder={t('Form-mail.1')}
                                 value={formData.mail}
                                 onChange={onChange}
                                 className={msg.mail && "error"}/> {msg.mail && (
@@ -93,7 +95,7 @@ const Register = (props) => {
                             <input
                                 type="password"
                                 name="pass"
-                                placeholder="Password"
+                                placeholder={t('Form-pass.1')}
                                 value={formData.pass}
                                 onChange={onChange}
                                 className={msg.pass && "error"}/> {msg.pass && (
@@ -107,7 +109,7 @@ const Register = (props) => {
                             <input
                                 type="password"
                                 name="pass2"
-                                placeholder="Password Again"
+                                placeholder={t('Form-pass2.1')}
                                 value={formData.pass2}
                                 onChange={onChange}
                                 className={msg.pass2 && "error"}/> {msg.pass2 && (
@@ -117,7 +119,7 @@ const Register = (props) => {
                             )}
                         </div>
 
-                        <button type="submit" className="btn">Sign Up</button>
+                        <button type="submit" className="btn">{t('Register.1')}</button>
                     </form>
                 </div>
             </div>

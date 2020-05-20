@@ -1,0 +1,48 @@
+{
+    "Hello":{
+        "1": "Hello"
+    },
+    "Home":{
+        "1": "Home"
+    },
+    "Logout":{
+        "1": "Logout"
+    },
+    "Template":{
+        "1": "Template"
+    },
+    "Login":{
+        "1": "Login"
+    },
+    "Login-title":{
+        "1": "Login"
+    },
+    "Register":{
+        "1": "Register"
+    },
+    "Form-login":{
+        "1": "Login"
+    },
+    "Form-mail":{
+        "1": "Mail"
+    },
+    "Form-pass":{
+        "1": "Password"
+    },
+    "Form-pass2":{
+        "1": "Password Again"
+    },
+    "Empty-list":{
+        "1": "List is Empty"
+    },
+    "Delete-item":{
+        "1": "Delete"
+    },
+    "Add-item":{
+        "1": "Add"
+    },
+    "Text-holder":{
+        "1": "Text..."
+    }
+
+}

@@ -2,8 +2,10 @@ import React, {useContext, useEffect, useState} from 'react';
 import {withRouter} from 'react-router-dom'
 import {userContext} from '../context/userContext'
 import {errorContext} from '../context/errorContext'
+import { useTranslation } from 'react-i18next';
 
 const Login = (props) => {
+    const { t } = useTranslation();
     const {isAuth, login} = useContext(userContext);
     const {errorMsg, errorId, clearErrors} = useContext(errorContext);
 
@@ -58,7 +60,7 @@ const Login = (props) => {
     return (
         <div className="login-section">
 
-            <h2 className="log-title">Login</h2>
+            <h2 className="log-title">{t("Login-title.1")}</h2>
 
             <div className="flex-wrap center">
                 <form onSubmit={onSubmit} className="add-form" autoComplete="off">
@@ -66,7 +68,7 @@ const Login = (props) => {
                         <input
                             type="text"
                             name="mail"
-                            placeholder="Mail"
+                            placeholder={t("Form-login.1")}
                             value={formData.mail}
                             onChange={onChange}
                             className={msg.mail && "error"}/> {msg.mail && (
@@ -80,7 +82,7 @@ const Login = (props) => {
                         <input
                             type="password"
                             name="pass"
-                            placeholder="Password"
+                            placeholder={t("Form-pass.1")}
                             value={formData.pass}
                             onChange={onChange}
                             className={msg.pass && "error"}/> {msg.pass && (
@@ -90,7 +92,7 @@ const Login = (props) => {
                         )}
                     </div>
 
-                    <button type="submit" className="btn">Sign In</button>
+                    <button type="submit" className="btn">{t('Login.1')}</button>
 
                 </form>
             </div>
