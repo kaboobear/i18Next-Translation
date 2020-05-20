@@ -1,80 +1,74 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {withRouter} from 'react-router-dom'
-import {register} from '../actions/authActions'
-import {clearErrors} from '../actions/errorActions'
-import {connect} from 'react-redux'
+import {userContext} from '../context/userContext'
+import {errorContext} from '../context/errorContext'
 
-class Register extends React.Component {
-    state = {
-        login: '',
-        mail: '',
-        pass: '',
-        pass2: '',
-        msg: {}
-    }
+const Register = (props) => {
+        const {isAuth, register} = useContext(userContext);
+        const {errorMsg, errorId, clearErrors} = useContext(errorContext);
+    
+        const [formData,setFormData] = useState({login: '', mail: '', pass: '', pass2: ''});
+        const [msg,setMsg] = useState({});
+    
+    
 
-    onChange = (e) => {
-        const {value, name} = e.target;
-        this.setState({[name]: value})
-    }
-
-    onSubmit = (e) => {
-        e.preventDefault();
-
-        const regData = {
-            login: this.state.login,
-            mail: this.state.mail,
-            pass: this.state.pass,
-            pass2: this.state.pass2
-        }
-
-        this
-            .props
-            .register(regData);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.isAuth === true) {
-            this
-                .props
-                .clearErrors();
-            return this
-                .props
-                .history
-                .push('/')
-        }
-
-        const error = this.props.error;
-        if (error !== prevProps.error) {
-            if (error.id === "REGISTER_FAIL") 
-                this.setState({msg: error.msg})
-            else 
-                this.setState({msg: {}});
+        useEffect(() => {
+            if (isAuth) {
+                clearErrors();
+                props.history.push('/')
             }
+    
+            if (errorId === "REGISTER_FAIL") 
+                setMsg(errorMsg);
+            else 
+                setMsg({})
+        }, [isAuth, errorId, errorMsg])
+    
+        useEffect(() => {
+            return () => {
+                clearErrors();
+            }
+        }, [])
+    
+    
+    
+        const onChange = (e) => {
+            const {value, name} = e.target;
+            setFormData({
+                ...formData,
+                [name]: value
+            })
         }
+    
+        const onSubmit = (e) => {
+            e.preventDefault();
+    
+            const regData = {
+                login: formData.login,
+                mail: formData.mail,
+                pass: formData.pass,
+                pass2: formData.pass2
+            }
+    
+            register(regData);
+        }
+    
 
-    componentWillUnmount() {
-        this
-            .props
-            .clearErrors();
-    }
-
-    render() {
         return (
             <div className="register-section">
 
                 <h2 className="log-title">Register</h2>
 
                 <div className="flex-wrap center">
-                    <form onSubmit={this.onSubmit} className="add-form" autoComplete="off">
+                    <form onSubmit={onSubmit} className="add-form" autoComplete="off">
                         <div className="simple-input">
                             <input
                                 type="text"
                                 name="login"
                                 placeholder="Login"
-                                value={this.state.login}
-                                onChange={this.onChange}
-                                className={this.state.msg.login && "error"}/> {this.state.msg.login && (
+                                value={formData.login}
+                                onChange={onChange}
+                                className={msg.login && "error"}/> {msg.login && (
                                 <div className="exclam">
                                     <img src="img/exclam-ico.png" alt=""/>
                                 </div>
@@ -86,9 +80,9 @@ class Register extends React.Component {
                                 type="text"
                                 name="mail"
                                 placeholder="E-mail"
-                                value={this.state.mail}
-                                onChange={this.onChange}
-                                className={this.state.msg.mail && "error"}/> {this.state.msg.mail && (
+                                value={formData.mail}
+                                onChange={onChange}
+                                className={msg.mail && "error"}/> {msg.mail && (
                                 <div className="exclam">
                                     <img src="img/exclam-ico.png" alt=""/>
                                 </div>
@@ -100,9 +94,9 @@ class Register extends React.Component {
                                 type="password"
                                 name="pass"
                                 placeholder="Password"
-                                value={this.state.pass}
-                                onChange={this.onChange}
-                                className={this.state.msg.pass && "error"}/> {this.state.msg.pass && (
+                                value={formData.pass}
+                                onChange={onChange}
+                                className={msg.pass && "error"}/> {msg.pass && (
                                 <div className="exclam">
                                     <img src="img/exclam-ico.png" alt=""/>
                                 </div>
@@ -114,9 +108,9 @@ class Register extends React.Component {
                                 type="password"
                                 name="pass2"
                                 placeholder="Password Again"
-                                value={this.state.pass2}
-                                onChange={this.onChange}
-                                className={this.state.msg.pass2 && "error"}/> {this.state.msg.pass2 && (
+                                value={formData.pass2}
+                                onChange={onChange}
+                                className={msg.pass2 && "error"}/> {msg.pass2 && (
                                 <div className="exclam">
                                     <img src="img/exclam-ico.png" alt=""/>
                                 </div>
@@ -128,9 +122,6 @@ class Register extends React.Component {
                 </div>
             </div>
         );
-    }
 }
 
-const mapStateToProps = state => ({isAuth: state.auth.isAuthenticated, error: state.error})
-
-export default withRouter(connect(mapStateToProps, {register, clearErrors})(Register));
+export default withRouter(Register)

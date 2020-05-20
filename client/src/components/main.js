@@ -1,25 +1,28 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {NavLink} from 'react-router-dom';
+import React, {useContext} from 'react';
+import ItemForm from './item-form'
+import Item from './item'
 
-class Main extends Component {
-    render() {
-        const {isAuth, isLoading, items} = this.props;
+import {itemContext} from '../context/itemContext'
 
-        return (
-            <div className="main-section">
-                <h2>Dashboard ( {(isAuth)
-                        ? (
-                            <span>Logged In</span>
-                        )
-                        : (
-                            <span>Logged Out</span>
-                        )})</h2>
+const Main = () => {
+    const {items} = useContext(itemContext);
 
-            </div>
-        )
-    }
+    return (
+        <div className="main-section">
+            <ItemForm/>
+
+            {(items.length === 0) ? (
+                <div className="empty-items">
+                    List is Empty
+                </div>
+            )
+            : (
+                <div className="items">
+                    {items.map(elem => <Item elem={elem} key={elem._id} />)}
+                </div>
+            )}
+        </div>
+    )
 }
 
-const mapStateToProps = (state) => ({isAuth: state.auth.isAuthenticated,isLoading:state.auth.isLoading})
-export default connect(mapStateToProps, {})(Main);
+export default Main;

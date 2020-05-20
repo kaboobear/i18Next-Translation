@@ -213,6 +213,7 @@ input[type=number] {
   letter-spacing: 0.03em;
   color: #FFFFFF;
   text-align: center;
+  font-family: Montserrat;
 }
 
 .btn.simple{
@@ -309,6 +310,18 @@ textarea:focus::placeholder {
 --------------------------Start-------------------------
 ----------------------------------------------------- */
 
+.content-section > .container{
+  display: flex;
+  justify-content: center;
+}
+
+.main-section{
+  max-width: 400px;
+  width: 100%;
+}
+
+
+
 
 
 .header-section{
@@ -377,58 +390,13 @@ textarea:focus::placeholder {
 
 
 
-.item{
-  padding: 8px;
-  padding-left: 12px;
-  border:1px solid #ccc;
-  border-radius: 5px;
-  font-size: 18px;
-  margin-bottom: 10px;
-  transition: .2s;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 58px;
+
+
+
+.login-section,
+.register-section{
+  width: 100%;
 }
-
-.item:hover{
-  border-color:#aaa;
-}
-
-.btns{
-  display: flex;
-}
-
-.btns > *{
-  margin-left: 8px;
-}
-
-.delete-btn{
-  background: #cc6e6e;
-  transition: .2s;
-}
-
-.delete-btn:hover{
-  background: #c75656;
-}
-
-.item-name{
-  transition: .2s;
-}
-
-.item:hover .item-name{
-  padding-left: 10px;
-}
-
-.loader{
-  text-align: center;
-  padding-top: 40px;
-}
-
-
-
-
-
 
 .login-section .flex-wrap,
 .register-section .flex-wrap{
@@ -464,6 +432,78 @@ textarea:focus::placeholder {
   transform: translateY(-50%);
   width: 25px;
   filter: invert(78%) sepia(73%) saturate(3950%) hue-rotate(309deg) brightness(95%) contrast(89%);
+}
+
+
+
+
+.item-form{
+  margin-bottom: 10px;
+  display: flex;
+  width: 100%;
+}
+
+.item-form .simple-input{
+  margin-bottom: 0;
+  margin-right: 10px;
+}
+
+.item-form .simple-input input{
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.item-form .btn{
+  font-size: 18px;
+  font-weight: 40;
+  max-width: 120px;
+  padding: 6px;
+  border-radius: 10px;
+}
+
+
+.empty-items{
+  border:1px solid #ccc;
+  padding: 15px;
+  font-size: 20px;
+  font-weight: 400;
+  width: 100%;
+  text-align: center;
+  border-radius: 10px;
+  color:#ccc;
+}
+
+.items{
+  width: 100%;
+  border:1px solid #ccc;
+  border-radius: 10px;
+}
+
+.item{
+  width: 100%;
+  padding: 10px;
+  padding-left: 12px;
+  transition: .2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item + .item{
+  border-top:1px solid #ccc;
+}
+
+.item-title{
+  color:#333;
+  font-size: 18px;
+}
+
+.item-delete{
+  background: #9e5757;
+  padding:8px 10px;
+  border-radius: 7px;
+  color:#fff;
+  cursor: pointer;
 }
 
 

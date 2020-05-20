@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
+import React, {useContext} from 'react';
 import {NavLink} from 'react-router-dom';
-import {logout} from '../actions/authActions'
-import {connect} from 'react-redux'
 
-class Header extends Component {
+import {userContext} from '../context/userContext'
 
-    render() {
-        const {user,isLoading,isAuth} = this.props;
+
+
+const Header = () => {
+        const {user,isAuth,isLoading,logout} = useContext(userContext);
 
         return (
             <div className="header-section">
@@ -42,7 +42,7 @@ class Header extends Component {
                                     </li>
                                     
                                     <li>
-                                        <div onClick={this.props.logout} className="btn simple">Logout</div>
+                                        <div onClick={logout} className="btn simple">Logout</div>
                                     </li>
                                 </span>
                             )}
@@ -50,9 +50,6 @@ class Header extends Component {
                 </div>
             </div>
         )
-    }
 }
 
-const mapStateToProps = state => ({isAuth: state.auth.isAuthenticated, isLoading: state.auth.isLoading, user: state.auth.user})
-
-export default connect(mapStateToProps, {logout})(Header)
+export default Header;

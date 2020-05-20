@@ -1,9 +1,11 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import {Route,Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {userContext} from '../context/userContext'
 
 
-const PrivateRoute = ({component:Component,isAdmin, isAuth, user, isLoading, ...rest})=>{
+const PrivateRoute = ({component:Component,isAdmin, ...rest})=>{
+    const {isAuth, user,isLoading} = useContext(userContext);
+
     return(
         (!isLoading) && (
         <Route exact {...rest} render={props=>{
@@ -14,8 +16,7 @@ const PrivateRoute = ({component:Component,isAdmin, isAuth, user, isLoading, ...
     )
 }
 
-const mapStateToProps = state => ({isAuth: state.auth.isAuthenticated,user: state.auth.user,isLoading:state.auth.isLoading})
-export default connect(mapStateToProps, null, null, { pure: false, })(PrivateRoute);
+export default PrivateRoute;
 
 
 

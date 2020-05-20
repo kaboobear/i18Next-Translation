@@ -8,6 +8,7 @@ const passport = require("passport");
 const db = require("./config/keys").mongoURI;
 
 const user_route = require("./routes/user_route");
+const item_route = require("./routes/item_route");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -27,6 +28,7 @@ mongoose
     .catch((err)=>{console.log(err);})
 
 app.use('/user',user_route);
+app.use('/item',item_route);
 
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'));
